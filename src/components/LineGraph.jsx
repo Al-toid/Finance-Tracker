@@ -1,4 +1,4 @@
-import './Graph.css'
+import './LineGraph.css'
 import {Line} from "react-chartjs-2"
 import { lineChartData } from '../mock_data'
 import { Chart as ChartJs,
@@ -21,9 +21,9 @@ ChartJs.register(
     Legend 
 )
 
-function Graph(){
+function LineGraph(){
     let options={}
-    return(<Line options={options} data={lineChartData}></Line>)
+    return(<Line options={options} data={lineChartData} className='bg-green-100'></Line>)
 }
 
-export default Graph
+export default LineGraph
