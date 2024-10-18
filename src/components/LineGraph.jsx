@@ -1,4 +1,3 @@
-import './LineGraph.css'
 import {Line} from "react-chartjs-2"
 import { lineChartData } from '../mock_data'
 import { Chart as ChartJs,

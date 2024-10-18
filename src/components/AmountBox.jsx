@@ -8,7 +8,7 @@ function AmountBox(props){
    </div>) 
 }
 
-AmountBox.PropTypes = {
+AmountBox.propTypes = {
    title: PropTypes.string,
    amount: PropTypes.string
 }

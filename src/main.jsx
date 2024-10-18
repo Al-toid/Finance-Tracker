@@ -1,11 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-//import App from './App.jsx'
-/*import HomePage from './pages/HomePage.jsx'*/
 import Navbar from './components/Navbar.jsx'
 import LineGraph from './components/LineGraph.jsx'
 import AmountBox from './components/AmountBox.jsx'
 import { amountData } from './mock_data.js'
+import InvestmentsPage from './pages/InvestmentsPage.jsx'
 import './index.css'
 
 createRoot(document.getElementById('root')).render(
@@ -20,6 +19,7 @@ createRoot(document.getElementById('root')).render(
     <div className='w-7/12 pt-5'>
       <LineGraph></LineGraph>
     </div>
+    <InvestmentsPage></InvestmentsPage>
     </div>
     
     

@@ -1,4 +1,3 @@
-import './Navbar.css'
 import reactLogo from '../assets/react.svg'
 import userPFP from "../assets/user_pfp.jpg"
 function Navbar(){
