@@ -32,3 +32,18 @@ export const lineChartData= {
         },
     ],
 };
+
+export const amountData= {
+    balance:{
+        label:"Balance",
+        amount: "1000"
+    },
+    expenses:{
+        label:"Expenses",
+        amount: "500"
+    },
+    budget:{
+        label:"Budget",
+        amount: "100"
+    },
+};
