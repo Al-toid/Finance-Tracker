@@ -1,5 +1,5 @@
 import {Line} from "react-chartjs-2"
-import { lineChartData } from '../mock_data'
+import PropTypes from "prop-types"
 import { Chart as ChartJs,
     CategoryScale,
     LinearScale,
@@ -19,10 +19,15 @@ ChartJs.register(
     Tooltip,
     Legend 
 )
+LineGraph.propTypes = {
+    option: PropTypes.object,
+    dataset: PropTypes.object
+ }
 
-function LineGraph(){
-    let options={}
-    return(<Line options={options} data={lineChartData} className='bg-green-100'></Line>)
+function LineGraph(props){
+    return(<Line options={props.option} data={props.dataset} className='bg-green-100'></Line>)
 }
+
+
 
 export default LineGraph
