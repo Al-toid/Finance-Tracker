@@ -7,6 +7,8 @@ function Navbar(){
             <h1 className='text-3xl'>Finance Tracker</h1>
         </div>
         <ul className='flex items-center'>
+            <li className='mx-4'><a href="login" className='text-lg hover:text-white duration-300'>Login</a></li>
+            <li className='mx-4'><a href="Signup" className='text-lg hover:text-white duration-300'>Sign Up</a></li>
             <li className='mx-4'><a href="home" className='text-lg hover:text-white duration-300'>Home</a></li>
             <li className='mx-4'><a href="investments" className='text-lg hover:text-white duration-300'>Investments</a></li>
             <li className='mx-4'><a href="#" className='text-lg hover:text-white duration-300'><img src={userPFP} className='w-10 rounded-md'></img></a></li>
