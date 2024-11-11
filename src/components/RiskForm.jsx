@@ -37,15 +37,7 @@ function RiskForm() {
             
           />
         </label><br></br>
-        <label>Select your car:
-          <select type="select" name="car" value={inputs.myCar} onChange={handleChange} 
-          
-        className={inputStyling}>
-            <option value="Ford">Ford</option>
-            <option value="Volvo">Volvo</option>
-            <option value="Fiat">Fiat</option>
-          </select>
-        </label><br></br>
+        
 
         <label>What is your employment status:
           <select type="select" name="employment" value={inputs.employment} onChange={handleChange} 
