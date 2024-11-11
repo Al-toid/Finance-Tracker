@@ -1,5 +1,4 @@
 
-import React from 'react';
 
 
 const LoginBox = () => {
@@ -22,8 +21,8 @@ const LoginBox = () => {
         </div>
 
         <button className="bg-green-500 text-white px-4 py-2 rounded-md w-full">Log In</button>
-        <button className="bg-black text-white px-4 py-2 rounded-md w-full">forgot Password?</button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-md w-full">New User? sign up!</button>
+        <button className="bg-black text-white px-4 py-2 rounded-md w-full">Forgot Password?</button>
+        <button className="bg-green-500 text-white px-4 py-2 rounded-md w-full">New User? Sign up!</button>
 
       </form>
     </div>

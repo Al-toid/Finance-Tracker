@@ -30,7 +30,7 @@ function InvestmentsPage(){
     }
     
     return (<>
-    <div className='bg-green-600 h-lvh'>
+    <div className='bg-green-500 h-lvh'>
     <Navbar></Navbar>
     <br></br>
     <p className='pl-6'>Fields here will be replaced with a form in the future</p>
@@ -55,6 +55,9 @@ function InvestmentsPage(){
       <div className='relative w-[35vw] h-[50vh]'>
         <RiskChart></RiskChart>
       </div>
+    </div>
+    <div className=''>
+
     </div>
     </div>
     </>)

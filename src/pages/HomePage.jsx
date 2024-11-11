@@ -18,8 +18,6 @@ function HomePage(){
         <LineGraph option={{}} dataset={lineChartData}></LineGraph>
       </div>
     </div>
-    
-   
     </div>
     </>)
 }

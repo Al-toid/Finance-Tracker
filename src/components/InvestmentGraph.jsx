@@ -51,8 +51,6 @@ function LineGraph(props){
             investmentSavings[i]=(investmentSavings[i-1]+props.monthlyInvestment*12)*growthRate
         }
     }
-    
-
 
     let investmentData= {
         //x axis
@@ -73,7 +71,5 @@ function LineGraph(props){
     };
     return(<Line options={props.option} data={investmentData} className='bg-green-100'></Line>)
 }
-
-
 
 export default LineGraph
