@@ -47,3 +47,18 @@ export const amountData= {
         amount: "100"
     },
 };
+
+export let UserInvestmentData= {
+    budget:{
+        label:"Budget",
+        amount: "100"
+    },
+    years:{
+        label:"Years",
+        amount: "5"
+    },
+    growth:{
+        label:"Growth",
+        amount: "5"
+    },
+};

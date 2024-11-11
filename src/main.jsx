@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage.jsx'
 import SignupPage from './pages/SignupPage.jsx' 
 
 import './index.css'
+import RiskForm from './components/RiskForm.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -16,7 +17,8 @@ createRoot(document.getElementById('root')).render(
       <Route path="/home" element={<HomePage></HomePage>}></Route>
       <Route path="/investments" element={<InvestmentsPage></InvestmentsPage>}></Route>
       <Route path= "/login" element={<LoginPage></LoginPage>}> </Route> 
-      <Route path= "/Signup" element={<SignupPage></SignupPage>}> </Route> 
+      <Route path= "/signup" element={<SignupPage></SignupPage>}> </Route>
+      <Route path= "/risk-form" element={<RiskForm></RiskForm>}> </Route> 
       
 
     </Routes>
