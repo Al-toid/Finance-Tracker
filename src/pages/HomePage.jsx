@@ -1,8 +1,10 @@
 import AmountBox from '../components/AmountBox'
 import { amountData } from '../mock_data'
-import LineGraph from '../components/LineGraph'
 import Navbar from '../components/Navbar'
-import { lineChartData } from '../mock_data'
+import { config } from '../mock_data'
+import { Line } from 'react-chartjs-2'
+import TransactionBox from '../components/TransactionBox'
+import { recentTransactions } from '../mock_data'
 
 function HomePage(){
     return(<>
@@ -12,10 +14,17 @@ function HomePage(){
       <AmountBox title={amountData.balance.label} amount={amountData.balance.amount}></AmountBox>
       <AmountBox title={amountData.expenses.label} amount={amountData.expenses.amount}></AmountBox>
     </div>
+    <br></br>
     {/*For ChartJS Elements to be resposive, container must be relatively postioned with h/w defined*/}
-    <div>
-      <div className='relative w-[75vw] h-[50vh]'>
-        <LineGraph option={{}} dataset={lineChartData}></LineGraph>
+    <div className="flex flex-col md:flex-row gap-6 p-6">
+      {/* Chart container */}
+      <div className="relative w-full md:w-[70vw] lg:w-[75vw] h-[50vh] p-4">
+        <Line options={config.options} data={config.data} className="bg-green-100" />
+      </div>
+
+      {/* Transaction box */}
+      <div className="w-full md:w-[30vw] lg:w-[25vw] p-4">
+        <TransactionBox title={"Recent Transactions"} transactions={recentTransactions} />
       </div>
     </div>
     </div>
