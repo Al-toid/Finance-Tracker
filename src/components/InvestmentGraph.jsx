@@ -69,7 +69,8 @@ function LineGraph(props){
             },
         ],
     };
-    return(<Line options={props.option} data={investmentData} className='bg-green-100'></Line>)
+
+    return(<Line options={props.option} data={investmentData}  className='bg-green-100'></Line>)
 }
 
 export default LineGraph
