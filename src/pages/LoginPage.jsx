@@ -5,7 +5,6 @@ import LoginBox from '../components/LoginBox.jsx';
 
 function LoginPage(){
     return(<>
-
         <Navbar />
         <LoginBox />
         
