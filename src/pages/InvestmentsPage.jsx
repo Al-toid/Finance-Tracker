@@ -2,12 +2,13 @@ import Navbar from '../components/Navbar'
 import InvestmentGraph from '../components/InvestmentGraph'
 import RiskChart from '../components/RiskChart'
 import { useState } from 'react'
+import RiskForm from '../components/RiskForm'
 
 
 
 function InvestmentsPage(){
     const [budget,setBudget] = useState(150)
-    const [years,setYears] = useState(5)
+    const [years,setYears] = useState(20)
     const [growthRate, setGrowthRate]= useState(5)
     const changeBudget = event =>{
         setBudget(event.target.value)
@@ -21,8 +22,18 @@ function InvestmentsPage(){
     const changeGrowthRate = event =>{
         setGrowthRate(event.target.value)
     }
+
     let graphOptions= {
-        scales:{
+        interaction: {
+            intersect: false
+        },
+        plugins: {
+            legend: false
+        },
+        scales: {
+            x: {
+                type: 'linear'
+            },
             y:{
                 min:0,
             }
@@ -30,9 +41,10 @@ function InvestmentsPage(){
     }
     
     return (<>
-    <div className='bg-green-500 h-lvh'>
+    <div className='bg-green-500 h-100'>
     <Navbar></Navbar>
     <br></br>
+    <button className="bg-green-300 hover:bg-green-700 text-black font-bold py-2 px-4 rounded">Find your investment strategy</button>
     <p className='pl-6'>Fields here will be replaced with a form in the future</p>
     <br></br>
     <div className='flex w-2/4 justify-around'>
@@ -56,9 +68,11 @@ function InvestmentsPage(){
         <RiskChart></RiskChart>
       </div>
     </div>
-    <div className=''>
+    <div>
+        <RiskForm></RiskForm>
 
     </div>
+   
     </div>
     </>)
 }
