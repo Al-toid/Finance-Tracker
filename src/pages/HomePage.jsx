@@ -8,7 +8,7 @@ import { recentTransactions } from '../mock_data'
 
 function HomePage(){
     return(<>
-    <div className='bg-gray-300 h-screen'>
+    <div className='bg-gray-100 h-screen'>
     <Navbar />
     <div className='flex w-7/12 justify-around pt-5' >
       <AmountBox title={amountData.balance.label} amount={amountData.balance.amount}></AmountBox>
@@ -18,8 +18,8 @@ function HomePage(){
     {/*For ChartJS Elements to be resposive, container must be relatively postioned with h/w defined*/}
     <div className="flex flex-col md:flex-row gap-6 p-6">
       {/* Chart container */}
-      <div className="relative w-full md:w-[70vw] lg:w-[75vw] h-[50vh] p-4">
-        <Line options={config.options} data={config.data} className="bg-green-100" />
+      <div className="w-full md:w-[70vw] lg:w-[75vw] h-[50vh] p-4">
+        <Line options={config.options} data={config.data} className="bg-gray-50" />
       </div>
 
       {/* Transaction box */}
