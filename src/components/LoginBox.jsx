@@ -1,7 +1,7 @@
-
-
+import { useNavigate } from 'react-router-dom';
 
 const LoginBox = () => {
+  const navigate = useNavigate()
 
   return (
 
@@ -22,7 +22,14 @@ const LoginBox = () => {
 
         <button className="bg-green-500 text-white px-4 py-2 rounded-md w-full">Log In</button>
         <button className="bg-black text-white px-4 py-2 rounded-md w-full">Forgot Password?</button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-md w-full">New User? Sign up!</button>
+        
+       
+        <button 
+        className="bg-green-500 text-white px-4 py-2 rounded-md w-full"
+        onClick={() => navigate('/signup')}>
+          New User? Sign up!
+        </button>
+       
 
       </form>
     </div>
