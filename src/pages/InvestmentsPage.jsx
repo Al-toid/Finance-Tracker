@@ -41,7 +41,7 @@ function InvestmentsPage(){
     }
     
     return (<>
-    <div className='bg-green-500 h-100'>
+    <div className='bg-[#F5F5F5] h-100'>
     <Navbar></Navbar>
     <br></br>
     <button className="bg-green-300 hover:bg-green-700 text-black font-bold py-2 px-4 rounded">Find your investment strategy</button>
