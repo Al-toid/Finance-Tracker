@@ -6,8 +6,6 @@ TransactionBox.propTypes = {
 }
 
 
-
-
 function TransactionBox(props) {
   // Only get the last 5 transactions
   const recentTransactions = props.transactions.slice(-5);
