@@ -9,6 +9,7 @@ import SignupPage from './pages/SignupPage.jsx'
 import './index.css'
 import RiskForm from './components/RiskForm.jsx'
 import TransactionDetailsPage from './pages/TransactionDetailsPage.jsx'
+import LandingPage from './pages/LandingPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
       <Route path= "/signup" element={<SignupPage></SignupPage>}> </Route>
       <Route path= "/risk-form" element={<RiskForm></RiskForm>}> </Route> 
       <Route path= "/transaction-details" element={<TransactionDetailsPage></TransactionDetailsPage>}> </Route> 
+      <Route path= "/landing" element={<LandingPage></LandingPage>}> </Route> 
 
     </Routes>
   </BrowserRouter>
