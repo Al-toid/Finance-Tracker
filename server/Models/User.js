@@ -1,6 +1,6 @@
 // models/User.js
 import { DataTypes } from 'sequelize';
-import sequelize from '../database.js'; // Adjust the path as necessary
+import sequelize from '../dataBase.js'; // Adjust the path as necessary
 
 const User = sequelize.define('User', {
   email: {

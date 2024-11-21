@@ -2,19 +2,13 @@ import  express from 'express';
 import jwt from 'jsonwebtoken' ;
 import bcrypt from 'bcrypt' ;
 import cors from 'cors' ;
-import { Sequelize } from 'sequelize'; 
 import dotenv from 'dotenv';
-import {User} from '../server/Models/User'
+import sequelize from './dataBase.js';
+import User from '../server/Models/User.js'
 dotenv.config()
-const config = {
-    dialectOptions: {
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    },
-  };
+
 // const sequelize = new Sequelize('User',process.env.User_Name,process.env.Password,{dialect:'postgres',port:6543,host:'aws-0-us-west-1.pooler.supabase.com'});
-const sequelize = new Sequelize(process.env.User_Database_url);
+
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
@@ -101,3 +95,4 @@ async function login(email, password){
     }
 }
 
+export default sequelize
