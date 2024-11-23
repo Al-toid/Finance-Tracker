@@ -15,7 +15,7 @@ function LandingPage() {
                 alt="Finance Tracker Logo"
                 className="w-10 h-10 mr-3 rounded-full'"
             />
-            <h1 className="text-2xl font-bold">Finance Tracker</h1>
+            <h1 className="text-2xl font-bold">Wealth Wise</h1>
             </div>
 
             {/* Navigation Links */}
