@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaChartLine, FaPiggyBank, FaRegMoneyBillAlt } from "react-icons/fa";
-import logo from "../assets/logoFinance.png"
+import logo from "../assets/logoWealthwise.png"
 
 function LandingPage() {
   return (
@@ -13,9 +13,9 @@ function LandingPage() {
             <img
                 src={logo}
                 alt="Finance Tracker Logo"
-                className="w-10 h-10 mr-3 rounded-full'"
+                className="w-10 h-10 mr-3 rounded-md'"
             />
-            <h1 className="text-2xl font-bold">Wealth Wise</h1>
+            <h1 className="text-2xl font-bold">WealthWise</h1>
             </div>
 
             {/* Navigation Links */}

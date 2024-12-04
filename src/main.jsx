@@ -1,34 +1,33 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import InvestmentsPage from './pages/InvestmentsPage.jsx'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import HomePage from './pages/HomePage.jsx'
-import LoginPage from './pages/LoginPage.jsx'
-import SignupPage from './pages/SignupPage.jsx' 
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import './index.css'
-import RiskForm from './components/RiskForm.jsx'
-import TransactionDetailsPage from './pages/TransactionDetailsPage.jsx'
-import LandingPage from './pages/LandingPage.jsx'
+import HomePage from './pages/HomePage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import SignupPage from './pages/SignupPage.jsx';
+import InvestmentsPage from './pages/InvestmentsPage.jsx';
+import RiskForm from './components/RiskForm.jsx';
+import TransactionDetailsPage from './pages/TransactionDetailsPage.jsx';
+import LandingPage from './pages/LandingPage.jsx';
+
+import { DarkModeProvider } from './context/DarkModeContext'; // Import the provider
+import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-  <BrowserRouter>
-    <Routes>
-
-      <Route index element={<HomePage></HomePage>}></Route>
-      <Route path="/home" element={<HomePage></HomePage>}></Route>
-      <Route path="/investments" element={<InvestmentsPage></InvestmentsPage>}></Route>
-      <Route path= "/login" element={<LoginPage></LoginPage>}> </Route> 
-      <Route path= "/signup" element={<SignupPage />}> </Route>
-      <Route path= "/risk-form" element={<RiskForm></RiskForm>}> </Route> 
-      <Route path= "/transaction-details" element={<TransactionDetailsPage></TransactionDetailsPage>}> </Route> 
-      <Route path= "/landing" element={<LandingPage></LandingPage>}> </Route> 
-
-    </Routes>
-  </BrowserRouter>
-    
-    
-    
+    <DarkModeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/investments" element={<InvestmentsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/risk-form" element={<RiskForm />} />
+          <Route path="/transaction-details" element={<TransactionDetailsPage />} />
+          <Route path="/landing" element={<LandingPage />} />
+        </Routes>
+      </BrowserRouter>
+    </DarkModeProvider>
   </StrictMode>,
-)
+);
