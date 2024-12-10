@@ -1,99 +1,111 @@
-import { useState } from 'react'
-function RiskForm() {
-    const [inputs, setInputs] = useState({});
-  
-    const handleChange = (event) => {
-      const name = event.target.name;
-      const value = event.target.value;
-      setInputs(values => ({...values, [name]: value}))
-      //doing the above allows us to not use use states for each value, simply take each event and set target to value of input
-    }
-  
-    const handleSubmit = (event) => {
-      event.preventDefault(); //prevents form from reloading page right away. better efficiency
-      console.log(inputs);
-    }
-    const inputStyling="w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-    return (
-      <form onSubmit={handleSubmit} className="m-auto p-4 border border-gray-500 rounded-md w-1/3 bg-slate-300">
-        <label>Enter your name:
-        <input 
-          type="text" 
-          name="username" 
-          value={inputs.username || ""} 
-          onChange={handleChange}
-          //for testing
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        
-        /><br></br>
+import { useEffect } from 'react';
+import PropTypes from "prop-types";
+
+const RiskForm = ({
+  budget,
+  years,
+  growthRate,
+  setGrowthRate,
+  setYears,
+  setBudget,
+}) => {
+  // Sync the budget when the component mounts or updates
+  useEffect(() => {
+    setBudget(budget);
+  }, [budget, setBudget]);
+
+  const handleBudgetChange = (e) => {
+    setBudget(e.target.value);
+  };
+
+  const handleYearsChange = (e) => {
+    setYears(e.target.value);
+  };
+
+  const handleGrowthRateChange = (rate) => {
+    setGrowthRate(rate);
+  };
+
+  return (
+    <form className="p-6 bg-white dark:bg-gray-800 dark:text-white shadow-lg rounded-md">
+      <div className="mb-4">
+        <label className="block text-gray-700 dark:text-gray-300">
+          Monthly Investment
         </label>
-        <label>Enter your age:
-          <input 
-            type="number" 
-            name="age" 
-            min="18"
-            value={inputs.age || ""} 
-            onChange={handleChange}
-            className={inputStyling}
-            
-          />
-        </label><br></br>
-        
+        <input
+          type="number"
+          value={budget}
+          onChange={handleBudgetChange}
+          className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          required
+        />
+      </div>
 
-        <label>What is your employment status:
-          <select type="select" name="employment" value={inputs.employment} onChange={handleChange} 
-          
-        className={inputStyling}>
-            <option value="Student">Student</option>
-            <option value="Part-Time">Part-Time</option>
-            <option value="Full-Time">Full-Time</option>
-            <option value="Self-Employed">Self-Employed</option>
-            <option value="Unemployed">Unemployed</option>
-            <option value="Retired">Retired</option>
-          </select>
-        </label><br></br>
+      <div className="mb-4">
+        <label className="block text-gray-700 dark:text-gray-300">
+          Years to Invest
+        </label>
+        <input
+          type="number"
+          value={years}
+          onChange={handleYearsChange}
+          className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          required
+        />
+      </div>
 
-        <label>What is your investment goal?:
-          <select type="select" name="goal" value={inputs.goal} onChange={handleChange} 
-          
-        className={inputStyling}>
-            <option value="High-growth potential">High-growth potential</option>
-            <option value="Moderate growth potential">Moderate growth potential</option>
-            <option value="Self-Employed">Conservative growth</option>
-          </select>
-        </label><br></br>
+      <div className="mb-4">
+        <label className="block text-gray-700 dark:text-gray-300">
+          Investment Growth Strategy
+        </label>
+        <div className="flex justify-around">
+          <button
+            type="button"
+            onClick={() => handleGrowthRateChange(6.5)}
+            className={`py-2 px-4 rounded-md ${
+              growthRate === 8
+                ? 'bg-green-600 text-white'
+                : 'bg-gray-300 dark:bg-gray-700 dark:text-white'
+            }`}
+          >
+            Aggressive (6.5%)
+          </button>
+          <button
+            type="button"
+            onClick={() => handleGrowthRateChange(5.7)}
+            className={`py-2 px-4 rounded-md ${
+              growthRate === 6
+                ? 'bg-green-600 text-white'
+                : 'bg-gray-300 dark:bg-gray-700 dark:text-white'
+            }`}
+          >
+            Moderate (5.7%)
+          </button>
+          <button
+            type="button"
+            onClick={() => handleGrowthRateChange(5)}
+            className={`py-2 px-4 rounded-md ${
+              growthRate === 5
+                ? 'bg-green-600 text-white'
+                : 'bg-gray-300 dark:bg-gray-700 dark:text-white'
+            }`}
+          >
+            Conservative (5%)
+          </button>
+        </div>
+      </div>
+    </form>
+  );
+};
 
-        <label>Initially, how much money do you plan to invest?:
-          <input 
-            type="number" 
-            name="budget" 
-            min="1"
-            value={inputs.budget || ""} 
-            onChange={handleChange}
-            className={inputStyling}
-            
-          />
-        </label><br></br>
+// Prop validation
+RiskForm.propTypes = {
+  budget: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired, // Budget can be a number or string
+  years: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired, // Years can be a number or string
+  growthRate: PropTypes.number.isRequired, // Growth rate should be a number
+  setGrowthRate: PropTypes.func.isRequired, // Function to set growth rate
+  setYears: PropTypes.func.isRequired, // Function to set years
+  setBudget: PropTypes.func.isRequired, // Function to set budget
+};
 
-        <label>In how many years will you need access to your investments?:
-          <input 
-            type="number" 
-            name="timeframe" 
-            min="1"
-            max="100"
-            value={inputs.timeframe || ""} 
-            onChange={handleChange}
-            className={inputStyling}
-            
-          />
-        </label><br></br>
-
-        
-        
-
-          
-        <input type="submit" />
-      </form>
-    )
-  }
 export default RiskForm;
