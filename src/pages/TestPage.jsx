@@ -22,6 +22,9 @@ const HomePage = () => {
   const [transactionType, setTransactionType] = useState("Income");
   const [expenses, setExpenses] = useState(0);
 
+  const [category, setCategory] = useState("Salary / Wages");
+
+
 
 
 const [chartData, setChartData] = useState({
@@ -179,7 +182,7 @@ const handleAddBalance = async () => {
 
     const transactionDate = date || new Date().toISOString();
 
-    // Insert a new transaction
+    // Insert a new transaction with the category
     const { error: transactionError } = await supabase
       .from("transaction")
       .insert({
@@ -187,6 +190,7 @@ const handleAddBalance = async () => {
         amount: parseFloat(newBalance),
         description: description.trim(),
         date: transactionDate,
+        category, // Add the category field
       });
 
     if (transactionError) {
@@ -198,12 +202,14 @@ const handleAddBalance = async () => {
     setNewBalance(""); // Reset the form
     setDescription("");
     setDate("");
+    setCategory("Salary / Wages"); // Reset the category to default
   } catch (error) {
     setError("Error: " + error.message);
   } finally {
     setLoading(false);
   }
 };
+
 
 
 
@@ -291,7 +297,8 @@ const handleAddBalance = async () => {
       {isModalOpen && (
 <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
   <div className="bg-white p-6 rounded w-96">
-    <h2 className="text-xl font-bold mb-4">Add Deposit / Transaction</h2>
+    <h2 className="text-xl font-bold mb-2">Add Deposit / Transaction</h2>
+    <h3 className='text-md  text-red-700  italic'> Note: Insert a negative value to log a transaction.</h3>
     {error && <p className="text-red-500 mb-4">{error}</p>}
     <input
       type="number"
@@ -314,6 +321,19 @@ const handleAddBalance = async () => {
       placeholder="Enter date"
       className="w-full p-2 mb-4 border rounded"
     />
+    <select
+      value={category}
+      onChange={(e) => setCategory(e.target.value)}
+      className="w-full p-2 mb-4 border rounded"
+    >
+      <option value="Salary / Wages">Salary / Wages</option>
+      <option value="Investments">Investments</option>
+      <option value="Transportation">Transportation</option>
+      <option value="Food">Food</option>
+      <option value="Gifts">Gifts</option>
+      <option value="Subscriptions / Memberships">Subscriptions / Memberships</option>
+      <option value="Utilities">Utilities</option>
+    </select>
     <div className="flex justify-between">
       <button
         onClick={() => setIsModalOpen(false)}
