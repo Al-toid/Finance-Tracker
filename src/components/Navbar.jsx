@@ -36,7 +36,7 @@ function Navbar() {
           {[ 
             [1, "login", "Login"],
             [2, "signup", "Sign Up"],
-            [3, "home", "Home"],
+            [3, "test", "Home"],
             [4, "investments", "Investments"],
           ].map(([id, url, title]) => (
             <li key={id}>

@@ -3,15 +3,22 @@ import { Link } from "react-router-dom";
 import { useDarkMode } from "../context/DarkModeContext"; // Import dark mode context
 
 TransactionBox.propTypes = {
-  title: PropTypes.string,
-  transactions: PropTypes.array,
+  title: PropTypes.string.isRequired,
+  transactions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      description: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 };
 
-function TransactionBox(props) {
+function TransactionBox({ title, transactions }) {
   const { darkMode } = useDarkMode(); // Access dark mode state
 
-  // Only get the last 5 transactions
-  const recentTransactions = props.transactions.slice(-5);
+  // Get the last 5 transactions (already sorted from the parent component)
+  const recentTransactions = transactions.slice(0, 5);
 
   return (
     <div
@@ -19,11 +26,11 @@ function TransactionBox(props) {
         darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-900"
       }`}
     >
-      <h3 className="text-lg font-semibold mb-4">{props.title}</h3>
+      <h3 className="text-lg font-semibold mb-4">{title}</h3>
       <ul className="space-y-4">
-        {recentTransactions.map((transaction, index) => (
+        {recentTransactions.map((transaction) => (
           <li
-            key={index}
+            key={transaction.id}
             className={`flex justify-between items-center p-4 border-b last:border-none cursor-pointer rounded transition-all duration-300 ${
               transaction.amount < 0
                 ? darkMode
@@ -36,7 +43,7 @@ function TransactionBox(props) {
           >
             <div className="flex flex-col">
               <span className="font-medium">{transaction.description}</span>
-              <small>{transaction.date}</small>
+              <small>{new Date(transaction.date).toLocaleDateString()}</small>
             </div>
             <span
               className={`font-semibold ${
