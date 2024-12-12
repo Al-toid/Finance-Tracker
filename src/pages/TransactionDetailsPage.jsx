@@ -1,20 +1,75 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { recentTransactions } from "../mock_data";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../context/DarkModeContext"; // Import dark mode context
-
-const myTransactions = recentTransactions;
+import { supabase } from "../../server/supabase.js"; // Import Supabase client
 
 function TransactionDetailsPage() {
+  const [transactions, setTransactions] = useState([]);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [balance, setBalance] = useState(null);
+  const [error, setError] = useState(null);
   const { darkMode } = useDarkMode(); // Use dark mode state
   const navigate = useNavigate(); // Initialize the navigate function
+
+  useEffect(() => {
+    const fetchTransactionsAndBalance = async () => {
+      try {
+        const { data: session } = await supabase.auth.getSession();
+
+        if (session?.session) {
+          const userId = session.session.user.id;
+
+          // Fetch transactions sorted by date (most recent first)
+          const { data: transactionsData, error: transactionsError } = await supabase
+            .from("transaction")
+            .select("*")
+            .eq("user_id", userId)
+            .order("date", { ascending: false });
+
+          if (transactionsError) {
+            setError("Error fetching transactions: " + transactionsError.message);
+            return;
+          }
+
+          setTransactions(transactionsData);
+
+          // Fetch user balance
+          const { data: balanceData, error: balanceError } = await supabase
+            .from("balance")
+            .select("balance")
+            .eq("user_id", userId)
+            .single();
+
+          if (balanceError) {
+            setError("Error fetching balance: " + balanceError.message);
+            return;
+          }
+
+          setBalance(balanceData.balance);
+        } else {
+          setError("You are not logged in!");
+        }
+      } catch (error) {
+        setError("Error: " + error.message);
+      }
+    };
+
+    fetchTransactionsAndBalance();
+  }, []);
 
   const handleBackClick = () => {
     navigate(-1); // Navigate to the previous page in the history
   };
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -47,9 +102,9 @@ function TransactionDetailsPage() {
           >
             <h2 className="text-lg font-semibold border-b pb-2 mb-4">Transaction History</h2>
             <ul>
-              {myTransactions.map((transaction, index) => (
+              {transactions.map((transaction) => (
                 <li
-                  key={index}
+                  key={transaction.id}
                   className={`p-4 border-b last:border-none cursor-pointer rounded transition ${
                     selectedTransaction?.id === transaction.id
                       ? darkMode
@@ -65,14 +120,14 @@ function TransactionDetailsPage() {
                     <span className="font-medium">{transaction.description}</span>
                     <span
                       className={`font-semibold ${
-                        transaction.amount < 0 ? "text-red-500" : "text-financial-success"
+                        transaction.amount < 0 ? "text-red-500" : "text-green-500"
                       }`}
                     >
                       {transaction.amount.toFixed(2)}
                     </span>
                   </div>
                   <small className="text-sm">
-                    {transaction.date}
+                    {new Date(transaction.date).toLocaleDateString()}
                   </small>
                 </li>
               ))}
@@ -91,16 +146,16 @@ function TransactionDetailsPage() {
                 <strong>Description:</strong> {selectedTransaction.description}
               </p>
               <p className="mb-2">
-                <strong>Category:</strong> {selectedTransaction.category}
+                <strong>Category:</strong> {selectedTransaction.category || "N/A"}
               </p>
               <p className="mb-2">
-                <strong>Date:</strong> {selectedTransaction.date}
+                <strong>Date:</strong> {new Date(selectedTransaction.date).toLocaleDateString()}
               </p>
               <p>
                 <strong>Amount:</strong>{" "}
                 <span
                   className={`font-semibold ${
-                    selectedTransaction.amount < 0 ? "text-red-500" : "text-financial-success"
+                    selectedTransaction.amount < 0 ? "text-red-500" : "text-green-500"
                   }`}
                 >
                   {selectedTransaction.amount.toFixed(2)}

@@ -9,6 +9,7 @@ import InvestmentsPage from './pages/InvestmentsPage.jsx';
 import RiskForm from './components/RiskForm.jsx';
 import TransactionDetailsPage from './pages/TransactionDetailsPage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
+import TestPage from './pages/TestPage.jsx'; 
 
 import { DarkModeProvider } from './context/DarkModeContext'; // Import the provider
 import './index.css';
@@ -18,7 +19,7 @@ createRoot(document.getElementById('root')).render(
     <DarkModeProvider>
       <BrowserRouter>
         <Routes>
-          <Route index element={<HomePage />} />
+          <Route index element={<LandingPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/investments" element={<InvestmentsPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/risk-form" element={<RiskForm />} />
           <Route path="/transaction-details" element={<TransactionDetailsPage />} />
           <Route path="/landing" element={<LandingPage />} />
+          <Route path="/test" element={<TestPage />} />
         </Routes>
       </BrowserRouter>
     </DarkModeProvider>

@@ -1,46 +1,65 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useDarkMode } from '../context/DarkModeContext'; // Import dark mode context
+import { supabase } from '../../server/supabase.js';
 
 const SignupBox = () => {
   const navigate = useNavigate();
-  const { darkMode } = useDarkMode(); // Use dark mode context
-
-  // Separate state for each field
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
-  // Form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSignup = async (e) => {
+  e.preventDefault();
+  setError('');
 
-    // Password validation/confirmation
-    if (password !== confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
-    // Else, submit form
-    console.log('Form Data:', { firstName, lastName, email, password });
-    alert('Account created successfully!');
-    navigate('/login'); // After we complete form, direct to login page
-  };
+  // Password validation
+  if (password !== confirmPassword) {
+    setError('Passwords do not match!');
+    return;
+  }
+
+  // Step 1: Create user in Supabase Auth
+  const { data: user, error: authError } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  if (authError) {
+    setError(authError.message);
+    return;
+  }
+
+  // Step 2: Insert profile data into the `profiles` table
+  const { error: profileError } = await supabase
+    .from('profiles')
+    .insert([
+      {
+        id: user.user.id, // Use the user ID returned by Supabase Auth
+        first_name: firstName,
+        last_name: lastName,
+        email,
+      },
+    ]);
+
+  if (profileError) {
+    setError(profileError.message);
+    return;
+  }
+
+  // Step 3: Redirect user to login page after successful signup
+  alert('Account created successfully!');
+  navigate('/login');
+};
+
 
   return (
-    <div
-      className={`flex items-center justify-center h-screen ${
-        darkMode ? 'bg-gray-900' : 'bg-gray-100'
-      }`}
-    >
-      <form
-        className={`${
-          darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'
-        } p-6 rounded shadow-md w-96`}
-        onSubmit={handleSubmit}
-      >
+    <div className="flex items-center justify-center h-screen">
+      <form className="bg-white p-6 rounded shadow-md w-96" onSubmit={handleSignup}>
         <h1 className="text-2xl font-bold mb-6">Sign Up</h1>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
 
         <div className="mb-4">
           <label className={`block ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -50,9 +69,7 @@ const SignupBox = () => {
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${
-              darkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-50 text-gray-800'
-            }`}
+            className="w-full px-3 py-2 border rounded-md"
           />
         </div>
 
@@ -64,9 +81,7 @@ const SignupBox = () => {
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${
-              darkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-50 text-gray-800'
-            }`}
+            className="w-full px-3 py-2 border rounded-md"
           />
         </div>
 
@@ -78,9 +93,7 @@ const SignupBox = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${
-              darkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-50 text-gray-800'
-            }`}
+            className="w-full px-3 py-2 border rounded-md"
           />
         </div>
 
@@ -92,9 +105,7 @@ const SignupBox = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${
-              darkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-50 text-gray-800'
-            }`}
+            className="w-full px-3 py-2 border rounded-md"
           />
         </div>
 
@@ -106,26 +117,16 @@ const SignupBox = () => {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className={`w-full px-3 py-2 border rounded-md ${
-              darkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-50 text-gray-800'
-            }`}
+            className="w-full px-3 py-2 border rounded-md"
           />
         </div>
 
-        <button
-          type="submit"
-          className={`${
-            darkMode ? 'bg-green-600' : 'bg-green-500'
-          } text-white px-4 py-2 rounded-md w-full`}
-        >
+        <button className="bg-green-500 text-white px-4 py-2 rounded-md w-full">
           Sign up!
         </button>
-
         <button
           type="button"
-          className={`${
-            darkMode ? 'bg-gray-800' : 'bg-black'
-          } text-white px-4 py-2 rounded-md w-full mt-4`}
+          className="bg-black text-white px-4 py-2 rounded-md w-full mt-4"
           onClick={() => navigate('/login')}
         >
           Already a user? Login
