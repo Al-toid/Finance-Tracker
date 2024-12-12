@@ -9,8 +9,8 @@ function AmountBox(props){
 }
 
 AmountBox.propTypes = {
-   title: PropTypes.string,
-   amount: PropTypes.string
+   title: PropTypes.any,
+   amount: PropTypes.any
 }
 
 

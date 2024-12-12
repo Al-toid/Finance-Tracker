@@ -155,7 +155,7 @@ function InvestmentsPage() {
       <div className="flex justify-center mb-8">
         <div className="relative w-full sm:w-[70vw] md:w-[75vw] lg:w-[70vw] h-[50vh] lg:h-[63vh]">
           <InvestmentGraph
-            option={[graphOptions]}
+            option={graphOptions}
             years={years} // Pass the years value to the graph
             monthlyInvestment={budget} // Pass the budget value to the graph
             rate={growthRate} // Pass the growth rate to the graph

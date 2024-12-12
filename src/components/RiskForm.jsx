@@ -100,12 +100,12 @@ const RiskForm = ({
 
 // Prop validation
 RiskForm.propTypes = {
-  budget: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired, // Budget can be a number or string
-  years: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired, // Years can be a number or string
-  growthRate: PropTypes.number.isRequired, // Growth rate should be a number
-  setGrowthRate: PropTypes.func.isRequired, // Function to set growth rate
-  setYears: PropTypes.func.isRequired, // Function to set years
-  setBudget: PropTypes.func.isRequired, // Function to set budget
+  budget: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // Budget can be a number or string
+  years: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // Years can be a number or string
+  growthRate: PropTypes.number, // Growth rate should be a number
+  setGrowthRate: PropTypes.func, // Function to set growth rate
+  setYears: PropTypes.func, // Function to set years
+  setBudget: PropTypes.func, // Function to set budget
 };
 
 export default RiskForm;

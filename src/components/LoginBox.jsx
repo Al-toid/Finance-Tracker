@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../server/supabase.js';
+import { useDarkMode } from "../context/DarkModeContext"; // Import dark mode context
 
 const LoginBox = () => {
   const navigate = useNavigate();
-
+  const { darkMode, toggleDarkMode } = useDarkMode(); // Use dark mode context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
