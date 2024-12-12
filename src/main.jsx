@@ -19,7 +19,7 @@ createRoot(document.getElementById('root')).render(
     <DarkModeProvider>
       <BrowserRouter>
         <Routes>
-          <Route index element={<HomePage />} />
+          <Route index element={<LandingPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/investments" element={<InvestmentsPage />} />
           <Route path="/login" element={<LoginPage />} />
